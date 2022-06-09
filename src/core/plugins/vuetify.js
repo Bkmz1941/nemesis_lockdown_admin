@@ -3,7 +3,7 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi'
 import 'vuetify/styles'
 import '@mdi/font/css/materialdesignicons.css'
 
-import { VApp, VAppBar, VContainer, VMain, VRow, VCol, VSheet, VImg, VIcon } from 'vuetify/components'
+import { VApp, VAppBarNavIcon, VAppBarTitle, VAppBar, VContainer, VMain, VRow, VCol, VSheet, VImg, VIcon, VBtn, VNavigationDrawer, VList, VListItem, VListItemTitle, VListItemSubtitle, VDivider, VSpacer } from 'vuetify/components'
 
 // Vuetify
 import { createVuetify } from 'vuetify'
@@ -13,7 +13,7 @@ import * as directives from 'vuetify/directives'
 
 export default createVuetify({
     directives,
-    components: { VApp, VAppBar, VContainer, VMain, VRow, VCol, VSheet, VImg, VIcon },
+    components: { VApp, VAppBarNavIcon, VAppBarTitle, VAppBar, VContainer, VMain, VRow, VCol, VSheet, VImg, VIcon, VBtn, VNavigationDrawer, VList, VListItem, VListItemTitle, VListItemSubtitle, VDivider, VSpacer },
     display: {
         mobileBreakpoint: 'sm',
         thresholds: {

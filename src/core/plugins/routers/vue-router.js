@@ -1,5 +1,5 @@
 const MainView = () => import('@views/main/MainView.vue')
-const Bar = { template: '<div>bar</div>' }
+const CharactersView = () => import('@views/characters/CharactersView.vue')
 
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -11,9 +11,9 @@ const routes = [
     }
     ,
     {
-        path: '/about',
-        name: "About",
-        component: Bar
+        path: '/characters',
+        name: "CharactersView",
+        component: CharactersView
     }
 ]
 
