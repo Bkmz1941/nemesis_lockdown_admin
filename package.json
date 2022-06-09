@@ -1,0 +1,30 @@
+{
+  "name": "nemesis_lockdown_admin",
+  "version": "0.0.0",
+  "scripts": {
+    "serve": "vite preview",
+    "build": "vite build",
+    "dev": "vite"
+  },
+  "dependencies": {
+    "@mdi/font": "^5.9.55",
+    "@vuetify/vite-plugin": "^1.0.0-alpha.11",
+    "class-transformer": "^0.5.1",
+    "lodash-humps-ts": "^0.0.6",
+    "reflect-metadata": "^0.1.13",
+    "roboto-fontface": "*",
+    "vue": "^3.2.6",
+    "vue-router": "^4.0.13",
+    "vue-tsc": "^0.37.3",
+    "vuetify": "^3.0.0-beta.0",
+    "vuex": "^4.0.2",
+    "webfontloader": "^1.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.0.0",
+    "@vue/compiler-sfc": "^3.2.6",
+    "vite": "^2.5.4",
+    "vite-plugin-vuetify": "^1.0.0-alpha.0",
+    "vue-cli-plugin-vuetify": "~2.5.1"
+  }
+}
