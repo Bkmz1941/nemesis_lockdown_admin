@@ -55,6 +55,7 @@
                             class="bg"
                             :src="selectedCharacter.getFullImageLink()"
                         />
+                        <div class="character-color"></div>
                     </div>
                 </v-sheet>
             </v-col>
@@ -71,8 +72,9 @@ export default defineComponent({
         const controller = CharactersViewController.getInstance();
         controller.fetchCharacters();
         controller.fetchCharactersBasicActions();
-
+        
         return {
+            controller,
             selectedCharacter: controller.selectedCharacter,
             characters: controller.characters,
             characterBasicActions: controller.characterBasicActions,
@@ -80,8 +82,6 @@ export default defineComponent({
     },
     methods: {
         selectCharacter(id: number) {
-            console.log(123213);
-            
             this.characters = this.characters.map((el) => {
                 if (el.getSelected() === true && el.getId() !== id) {
                     el.setSelected(false);
@@ -96,6 +96,9 @@ export default defineComponent({
             console.log(213213);
         }
     },
+    unmounted() {
+        this.controller.destroy();
+    }
 });
 </script>
 

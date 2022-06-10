@@ -99,4 +99,8 @@ export default class CharactersViewController {
     public fetchCharactersBasicActions() {
         this._store!.dispatch("fecthCharactersBasicActions")
     }
+
+    public destroy() {
+        CharactersViewController.instance = null;
+    }
 }

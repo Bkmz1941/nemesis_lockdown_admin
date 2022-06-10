@@ -47,12 +47,14 @@
         background-color: #fff;
         padding: 4px;
         border-radius: 4px;
+        z-index: 101;
     }
 
     .actions {
         position: absolute;
         bottom: 16px;
         right: 16px;
+        z-index: 101;
 
         .basic_actions {
             background-color: #fff;
@@ -95,5 +97,17 @@
         width: 100%;
         border-radius: 4px;
         object-fit: cover;
+        z-index: 99;
+    }
+
+    .character-color {
+        // background: linear-gradient(0deg, rgba(255,0,0,0.5) 0%, rgba(36,0,0,0) 35%);
+        position: absolute;
+        top: 4px;
+        bottom: 4px;
+        left: 4px;
+        right: 4px;
+        border-radius: 4px;
+        z-index: 100;
     }
 }
