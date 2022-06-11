@@ -1,5 +1,17 @@
 <template>
     <v-container>
+        <v-dialog
+            v-model="dialog"
+            class="character-action-cards__modal"
+            >
+            <v-card max-width="1500">
+                <div class="cards-box">
+                    <div class="card" v-for="o in a" :key="o">
+                        <img class="fade-in" :src="o.getFullImageLink" alt="">
+                    </div>
+                </div>
+            </v-card>
+        </v-dialog>
         <v-row>
             <v-col cols="2">
                 <v-sheet
@@ -27,27 +39,29 @@
                         </div>
                         <div class="actions">
                             <h2 class="text-white">Основные действия</h2>
-                            <div class="basic_actions">
-                                <div
-                                    class="action"
-                                    v-for="action in characterBasicActions"
-                                    :key="action.getId()"
-                                    v-touch="{
-                                        start: () => log()
-                                    }"
-                                >
-                                    <span> {{ action.getName() }}</span>
-                                    <v-icon
-                                        :icon="
-                                            action.getCost() == 1
-                                                ? 'mdi-numeric-1-box'
-                                                : 'mdi-numeric-2-box'
-                                        "
-                                    />
-                                      <!-- <v-icon
+                            <div class="actions-box">
+                                <div class="cards" @click="openCards">
+                                    <v-icon icon="mdi-cards-outline" />
+                                </div>
+                                <div class="basic_actions">
+                                    <div
+                                        class="action"
+                                        v-for="action in characterBasicActions"
+                                        :key="action.getId()"
+                                    >
+                                        <span> {{ action.getName() }}</span>
+                                        <v-icon
+                                            :icon="
+                                                action.getCost() == 1
+                                                    ? 'mdi-numeric-1-box'
+                                                    : 'mdi-numeric-2-box'
+                                            "
+                                        />
+                                        <!-- <v-icon
                                             v-if="action.getAvailable() == 'IN_COMBAT'"
                                             icon="mdi-pistol"
                                         /> -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +78,8 @@
 </template>
  
 <script lang="ts">
-import { defineComponent } from "@vue/runtime-core";
+import { defineComponent, ref } from "@vue/runtime-core";
+import { useStore } from "vuex";
 import CharactersViewController from "./controller/CharactersViewController";
 
 export default defineComponent({
@@ -72,8 +87,14 @@ export default defineComponent({
         const controller = CharactersViewController.getInstance();
         controller.fetchCharacters();
         controller.fetchCharactersBasicActions();
-        
+        let dialog = ref(false);
+        const store = useStore();
+        const a = ref(null);
+
         return {
+            a,
+            store,
+            dialog,
             controller,
             selectedCharacter: controller.selectedCharacter,
             characters: controller.characters,
@@ -92,13 +113,15 @@ export default defineComponent({
                 return el;
             });
         },
-        log() {
-            console.log(213213);
+        async openCards() {
+            const a = await this.store.dispatch("fecthCharactersCardActions", 'sentry')
+            this.dialog = true;
+            this.a = a;
         }
     },
     unmounted() {
         this.controller.destroy();
-    }
+    },
 });
 </script>
 

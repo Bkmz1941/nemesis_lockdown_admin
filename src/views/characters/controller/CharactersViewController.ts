@@ -28,7 +28,7 @@ export default class CharactersViewController {
                             CharactersViewCharacter,
                             self._store?.state.characters
                         );
-                        self._characters_box.value[0].setSelected(true);
+                        self._characters_box.value[0].setSelected(true)
                     }
                 } catch (e) {
                     console.log(e);
@@ -95,6 +95,11 @@ export default class CharactersViewController {
     public fetchCharacters() {
         this._store!.dispatch("fecthCharacters")
     }
+    
+    public fecthCharactersCardActions(characterSystemName: string) {
+        this._store!.dispatch("fecthCharactersCardActions", characterSystemName)
+    }
+
 
     public fetchCharactersBasicActions() {
         this._store!.dispatch("fecthCharactersBasicActions")
