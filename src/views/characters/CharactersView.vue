@@ -4,16 +4,39 @@
             v-model="dialog"
             class="character-action-cards__modal"
             >
-            <v-card max-width="1500">
-                <div class="cards-box">
-                    <div class="card" v-for="o in a" :key="o">
-                        <img class="fade-in" :src="o.getFullImageLink" alt="">
+            <v-card>
+               <div class="swiper-box">
+                    <swiper
+                        :slides-per-view="5"
+                        :space-between="8"
+                        :centeredSlides="true"
+                        :pagination="{
+                            clickable: true,
+                        }"
+                        :modules="modules"
+                        class="cards-swiper"
+                        @swiper="onSwiper"
+                        @slideChange="onSlideChange"
+                    >
+                        <swiper-slide v-for="character in a" :key="character">
+                            <!-- <img :src="character.getFullImageLink" alt=""> -->
+                            <div class="actions">
+                                <div class="action" v-for="value in character.values" :key="value.id">
+                                    <div class="content">
+                                        <span class="name">{{value.name}}</span>
+                                        <span class="description">{{value.description}}</span>
+                                    </div>
+                                    <div class="overlay"></div>
+                                </div>
+                            </div>
+                        </swiper-slide>
+                    </swiper>
                     </div>
-                </div>
             </v-card>
         </v-dialog>
         <v-row>
             <v-col cols="2">
+                
                 <v-sheet
                     rounded="lg"
                     class="fade-in"
@@ -81,8 +104,16 @@
 import { defineComponent, ref } from "@vue/runtime-core";
 import { useStore } from "vuex";
 import CharactersViewController from "./controller/CharactersViewController";
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import "swiper/css/pagination";
+import { Pagination } from "swiper";
 
 export default defineComponent({
+    components: {
+      Swiper,
+      SwiperSlide,
+    },
     setup() {
         const controller = CharactersViewController.getInstance();
         controller.fetchCharacters();
@@ -90,8 +121,17 @@ export default defineComponent({
         let dialog = ref(false);
         const store = useStore();
         const a = ref(null);
-
+        const onSwiper = (swiper: any) => {
+            console.log(swiper);
+        };
+        const onSlideChange = () => {
+            console.log('slide change');
+        };
+        
         return {
+            modules: [Pagination],
+            onSwiper,
+            onSlideChange,
             a,
             store,
             dialog,

@@ -1,4 +1,3 @@
-// import { createApp } from 'vue';
 import { createApp } from 'vue/dist/vue.esm-bundler';
 import {vuetify} from './plugins';
 import App from '@components/wireframe/App.vue';
@@ -7,11 +6,11 @@ import router from './plugins/routers/vue-router'
 import store from './plugins/store/store'
 import "./scss/index.scss"
 
+
 loadFonts()
 
-
-createApp(App)
+const app = createApp(App)
     .use(router)
     .use(store)
     .use(vuetify)
-    .mount('#app');
+    .mount('#app')
