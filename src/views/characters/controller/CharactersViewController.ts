@@ -1,7 +1,7 @@
 import { computed, ComputedRef, defineComponent, reactive, ReactiveEffect, Ref, WritableComputedRef } from "@vue/runtime-core";
 import { Store, useStore } from "vuex";
 import { ref } from "vue";
-import { Character } from "@/core/plugins/store/entities";
+import { Character } from "@/core/plugins/store/models";
 import CharactersViewCharacter from "../models/CharactersViewCharacter";
 import CharactersViewCharacterBasicActions from "../models/CharactersViewCharacterBasicActions";
 import { plainToInstance } from "class-transformer";
