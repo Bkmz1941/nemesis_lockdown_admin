@@ -1,4 +1,4 @@
-import { Character } from "@/core/plugins/store/entities"
+import { Character } from "@/core/plugins/store/models"
 import { Exclude, plainToInstance, Type } from 'class-transformer';
 
 export default class MainViewCharacterBasicActions {

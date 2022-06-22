@@ -1,42 +1,13 @@
 <template>
     <v-container>
-        <v-dialog
-            v-model="dialog"
-            class="character-action-cards__modal"
-            >
-            <v-card>
-               <div class="swiper-box">
-                    <swiper
-                        :slides-per-view="5"
-                        :space-between="8"
-                        :centeredSlides="true"
-                        :pagination="{
-                            clickable: true,
-                        }"
-                        :modules="modules"
-                        class="cards-swiper"
-                        @swiper="onSwiper"
-                        @slideChange="onSlideChange"
-                    >
-                        <swiper-slide v-for="character in a" :key="character">
-                            <!-- <img :src="character.getFullImageLink" alt=""> -->
-                            <div class="actions">
-                                <div class="action" v-for="value in character.values" :key="value.id">
-                                    <div class="content">
-                                        <span class="name">{{value.name}}</span>
-                                        <span class="description">{{value.description}}</span>
-                                    </div>
-                                    <div class="overlay"></div>
-                                </div>
-                            </div>
-                        </swiper-slide>
-                    </swiper>
-                    </div>
-            </v-card>
-        </v-dialog>
+        <SwiperCharacterActionCards 
+            v-if="selectedCharacter" 
+            :dialog="dialog" 
+            :character="selectedCharacter" 
+            @close="dialog = false"
+        />
         <v-row>
             <v-col cols="2">
-                
                 <v-sheet
                     rounded="lg"
                     class="fade-in"
@@ -101,18 +72,15 @@
 </template>
  
 <script lang="ts">
-import { defineComponent, ref } from "@vue/runtime-core";
+import { defineComponent, Ref, ref } from "@vue/runtime-core";
 import { useStore } from "vuex";
 import CharactersViewController from "./controller/CharactersViewController";
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import 'swiper/css';
-import "swiper/css/pagination";
-import { Pagination } from "swiper";
+import CharacterActionCard, { CharacterActionCardValue } from "@/core/plugins/store/entities/CharacterActionCard";
+import SwiperCharacterActionCards from "@/components/character-action-cards/SwiperCharacterActionCards.vue";
 
 export default defineComponent({
     components: {
-      Swiper,
-      SwiperSlide,
+        SwiperCharacterActionCards
     },
     setup() {
         const controller = CharactersViewController.getInstance();
@@ -120,19 +88,10 @@ export default defineComponent({
         controller.fetchCharactersBasicActions();
         let dialog = ref(false);
         const store = useStore();
-        const a = ref(null);
-        const onSwiper = (swiper: any) => {
-            console.log(swiper);
-        };
-        const onSlideChange = () => {
-            console.log('slide change');
-        };
-        
+        const characterActionCards: Ref<CharacterActionCard[]> = ref([]);
+
         return {
-            modules: [Pagination],
-            onSwiper,
-            onSlideChange,
-            a,
+            characterActionCards,
             store,
             dialog,
             controller,
@@ -154,9 +113,8 @@ export default defineComponent({
             });
         },
         async openCards() {
-            const a = await this.store.dispatch("fecthCharactersCardActions", 'sentry')
+            // this.characterActionCards = await this.store.dispatch("fecthCharactersActionCards", 'sentry')
             this.dialog = true;
-            this.a = a;
         }
     },
     unmounted() {

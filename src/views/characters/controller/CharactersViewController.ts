@@ -18,16 +18,16 @@ export default class CharactersViewController {
     private constructor() {
         const self = this;
 
-        this._store = useStore();
-        this._characters_box = ref([]);
+        this._store = useStore()
+        this._characters_box = ref([])
         this._characters = computed({
             get() {
                 try {
                     if (self._characters_box.value.length === 0 && self._store?.state.characters) {
-                        self._characters_box.value = plainToInstance(
+                        self._characters_box.value = plainToInstance<CharactersViewCharacter, CharactersViewCharacter[]>(
                             CharactersViewCharacter,
                             self._store?.state.characters
-                        );
+                        ) 
                         self._characters_box.value[0].setSelected(true)
                     }
                 } catch (e) {
